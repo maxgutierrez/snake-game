@@ -7,15 +7,17 @@ window.onload = function() {
     var ctx = stage.getContext('2d');
   }  
   document.addEventListener('keydown', keyPush)
-  setInterval(game, 100); // taxa de att do game()
-  const vel = 1
-  var vx = vy = 0 // vel xy
+  setInterval(game, 50); // taxa de att do game()
+  const vel = 0.5
+  var vx = 0
+  var vy = -0.5 // vel xy
   var px = 10 // pos x
   var py = 10 // pos y
   var pr = 14
   var tp = 20 // tamanho peças (tabuleiro)
   var qp = 20 // quantidade de peças (tabuleiro)
-  var ax = ay = 15 // apple xy
+  var ax = 10
+  var ay = 19 // apple xy
   var trail = [] // = rastro
   tail = 5 // tamanho da cauda
 
@@ -38,8 +40,13 @@ window.onload = function() {
     ctx.fillStyle = 'black'// fundo
     ctx.fillRect(0,0, stage.width , stage.height)
 
-    ctx.fillStyle =  ' rgb(7, 252, 7)' // maçã 
+    // ctx.fillStyle =  ' rgb(255, 255, 255)' // maçã 
     ctx.fillRect(ax*tp , ay*tp, tp, tp)
+    var eat = new Image();
+    eat.src = "./img/eat.png";
+    eat.onload = function() {
+      ctx.drawImage(eat, ax*tp-8 , ay*tp-6, 35, 35);
+    }  
 
 
     for (var i = 0; i < trail.length; i++) {// iterar o rastro
@@ -52,7 +59,7 @@ window.onload = function() {
       ctx.fillRect(trail[i].x*tp , trail[i].y*tp, tp, tp) 
 
       var imagem = new Image();
-      imagem.src = "./imagem.png";
+      imagem.src = "./img/imagem.png";
       imagem.onload = function() {
         ctx.drawImage(imagem, trail[trail.length-1].x*tp-5 , trail[trail.length-1].y*tp-5, 30, 30);
       }      
@@ -81,10 +88,15 @@ window.onload = function() {
       trail.shift()
     }
 
-    if (ax==px && ay==py){ // se comer
+    if (
+      ax==px && ay==py ||
+      ax==px+0.5 && ay==py ||
+      ax==px-0.5 && ay==py ||
+      ax==px && ay==py+0.5 ||
+      ax==px && ay==py-0.5
+      ){ // se comer
       tail+= 2
-      const x = Math.floor(Math.random()* qp)
-      const y = Math.floor(Math.random()* qp)
+      const x = y = Math.floor(Math.random()* qp)
       ax = x
       ay = y
     }
