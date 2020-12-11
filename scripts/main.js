@@ -1,12 +1,12 @@
+// add pontuaçao e hanking
 window.onload = function() {
   const bouttons = document.querySelectorAll('button')
 
-  var stage = document.querySelector('#stage')
-  var ctx = stage.getContext('2d')//dentro do ctx é gerada toda a parte grafica
+  const stage = document.querySelector('#stage')
+  const ctx = stage.getContext('2d')//dentro do ctx é gerada toda a parte grafica
   document.addEventListener('keydown', keyPush)
  
   setInterval(game, 100); // taxa de att do game()
-
   const vel = 1
 
   var vx = vy = 0 // vel xy
@@ -15,7 +15,7 @@ window.onload = function() {
   var tp = 20 // tamanho peças (tabuleiro)
   var qp = 20 // quantidade de peças (tabuleiro)
   var ax = ay = 15 // apple xy
-
+  
   var trail = [] // = rastro
   tail = 5 // tamanho da cauda
 
@@ -40,21 +40,24 @@ window.onload = function() {
 
     // ctx.fillStyle = 'green'
     // ctx.fillRect(px*py)
+    
+
 
     ctx.fillStyle = 'black'// fundo
     ctx.fillRect(0,0, stage.width , stage.height)
 
-    ctx.fillStyle =  'red' // maçã 
+    ctx.fillStyle =  ' rgb(7, 252, 7)' // maçã 
     ctx.fillRect(ax*tp , ay*tp, tp, tp)
 
-    ctx.fillStyle = 'gray'// snake
-    for (var i = 0; i < trail.length; i++) {
-      
-      ctx.fillRect(trail[i].x*tp , trail[i].y*tp, tp, tp)
-      ctx.fillStyle =  'blue'
-      if (trail[i].x == px && trail[i].y == py)
+    for (var i = 0; i < trail.length; i++) {      
+      ctx.fillStyle = 'rgb(224, 148, 49)'// snake
+      ctx.fillRect(trail[i].x*tp , trail[i].y*tp, tp, tp)  
+      ctx.fillStyle = 'rgb(160, 100, 39)'// snake   
+      ctx.fillRect(trail[trail.length-1].x*tp , trail[trail.length-1].y*tp, tp, tp)
+   
+
+      if (trail[0].x == px && trail[0].y == py)
       {
-        
         vx = vy = 0
         tail = 5
       }      
