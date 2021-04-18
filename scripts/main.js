@@ -9,14 +9,14 @@ window.onload = function() {
   document.addEventListener('keydown', keyPush)
   setInterval(game, 50); // taxa de att do game()
   const vel = 0.5
-  var vx = 0
+  var vx = 0 // vel xy
   var vy = -0.5 // vel xy
   var px = 10 // pos x
   var py = 10 // pos y
   var pr = 14
   var tp = 20 // tamanho peças (tabuleiro)
   var qp = 20 // quantidade de peças (tabuleiro)
-  var ax = 10
+  var ax = 10 // apple xy
   var ay = 19 // apple xy
   var trail = [] // = rastro
   tail = 5 // tamanho da cauda
@@ -40,10 +40,10 @@ window.onload = function() {
     ctx.fillStyle = 'black'// fundo
     ctx.fillRect(0,0, stage.width , stage.height)
 
-    // ctx.fillStyle =  ' rgb(255, 255, 255)' // maçã 
+    ctx.fillStyle =  ' rgb(255, 255, 255)' // maçã 
     ctx.fillRect(ax*tp , ay*tp, tp, tp)
     var eat = new Image();
-    eat.src = "../img/eat.png";
+    eat.src = "../img.eat.png";
     eat.onload = function() {
       ctx.drawImage(eat, ax*tp-8 , ay*tp-6, 35, 35);
     }  
@@ -76,7 +76,7 @@ window.onload = function() {
 
       //MORREU
       if (trail[i].x == px && trail[i].y == py && tail != 5) {
-        alert('POOOOXA!! VOCÊ MORREU KKK')
+        alert('POOOOXA!! VOCÊ MORREU... tente mais uma vez')
         vx = vy = 0
         px = py = 10
         tail = 5
