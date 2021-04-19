@@ -9,8 +9,8 @@ window.onload = function() {
   document.addEventListener('keydown', keyPush)
   setInterval(game, 50); // taxa de att do game()
   const vel = 0.5
-  var vx = 0 // vel xy
-  var vy = -0.5 // vel xy
+  var vx = 0 // vel x
+  var vy = -0.5 // vel y
   var px = 10 // pos x
   var py = 10 // pos y
   var pr = 14
@@ -24,8 +24,8 @@ window.onload = function() {
   function game() {
     px += vx
     py += vy
-    if (px < 0) {
-      px = qp-1
+    if (px < 0) {// se pos x for menor que zero
+      px = qp-1// entao atravessa o tabuleiro
     }
     if (px > qp-1) { // se cabeçao estiver em uyma pos > que o tamanho do tabuleiro
       px = 0
@@ -60,9 +60,9 @@ window.onload = function() {
 
       var imagem = new Image();
       imagem.src = "../img/imagem.png";
-      imagem.onload = function() {
-        ctx.drawImage(imagem, trail[trail.length-1].x*tp-5 , trail[trail.length-1].y*tp-5, 30, 30);
-      }      
+      // imagem.onload = function() {
+      //   ctx.drawImage(imagem, trail[trail.length-1].x*tp-5 , trail[trail.length-1].y*tp-5, 30, 30);
+      // }      
       
       // ctx.beginPath();// ROSTINHO DESENHADO
       // ctx.arc(trail[trail.length-1].x*tp+10 , trail[trail.length-1].y*tp+10, 10, 0, Math.PI * 2, true); // Círculo exterior
@@ -85,15 +85,20 @@ window.onload = function() {
 
     trail.push( { x:px , y:py } )// CAMINHAR
     while (trail.length > tail) {
-      trail.shift()
+      trail.shift()// remove ultima casa do rastro
     }
 
-    if (
+    if (// se a comida e a cobra estiverem na mesma pos
       ax==px && ay==py ||
-      ax==px+0.5 && ay==py ||
-      ax==px-0.5 && ay==py ||
-      ax==px && ay==py+0.5 ||
-      ax==px && ay==py-0.5
+      ax==px && ay==py+0.5 ||// meio passo a direita
+      ax==px && ay==py-0.5 ||// meio passo a esquerda
+      ax==px-0.5 && ay==py ||// meio passo acima
+      ax==px+0.5 && ay==py ||// meio passo abaixo
+
+      ax==px && ay==py+1 ||// um passo a direita
+      ax==px && ay==py-1 ||// um passo a esquerda
+      ax==px-1 && ay==py ||// um passo acima
+      ax==px+1 && ay==py// um passo abaixo
       ){ // se comer
       tail+= 2
       const x = y = Math.floor(Math.random()* qp)
@@ -101,24 +106,32 @@ window.onload = function() {
       ay = y
     }
   }
-
+// TORNAR UMA FUNCAO PURA  HEHEHE
   function keyPush(event) {
     switch (event.keyCode) {// →↓↑←
       case 37||65: //left
-        vx = -vel
-        vy = 0
+        if(vx == 0) {  
+          vx = -vel
+          vy = 0
+        }
         break;
       case 38||87: //up
-        vx = 0
-        vy = -vel
+        if(vy == 0) {  
+          vx = 0
+          vy = -vel
+        }
         break;
       case 39||68: //right
-        vx = vel
-        vy = 0
+        if(vx == 0) {  
+          vx = vel
+          vy = 0
+        }
         break;
       case 40||83: //down
-        vx = 0
-        vy = vel
+        if(vy == 0) {  
+          vx = 0
+          vy = vel
+        }
         break;
     
       default:
@@ -126,20 +139,28 @@ window.onload = function() {
     }
     switch (event.keyCode) {// WASD
       case 65: //left
-        vx = -vel
-        vy = 0
+        if(vx == 0) {  
+          vx = -vel
+          vy = 0
+        }
         break;
       case 87: //up
-        vx = 0
-        vy = -vel
+        if(vy == 0) {  
+          vx = 0
+          vy = -vel
+        }
         break;
       case 68: //right
-        vx = vel
-        vy = 0
+        if(vx == 0) {  
+          vx = vel
+          vy = 0
+        }
         break;
       case 83: //down
-        vx = 0
-        vy = vel
+        if(vy == 0) {  
+          vx = 0
+          vy = vel
+        }
         break;
     
       default:
@@ -151,20 +172,28 @@ window.onload = function() {
     btn.addEventListener('click', ()=> {
       switch (btn.innerHTML) {// WASD
         case '←': //left
-          vx = -vel
-          vy = 0
+          if(vx == 0) {  
+            vx = -vel
+            vy = 0
+          }
           break;
         case '↑': //up
-          vx = 0
-          vy = -vel
+          if(vy == 0) {  
+            vx = 0
+            vy = -vel
+          }
           break;
         case '→': //right
-          vx = vel
-          vy = 0
+          if(vx == 0) {  
+            vx = vel
+            vy = 0
+          }
           break;
         case '↓': //down
-          vx = 0
-          vy = vel
+          if(vy == 0) {  
+            vx = 0
+            vy = vel
+          }
           break;
       
         default:
